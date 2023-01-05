@@ -8,127 +8,6 @@ import time
 import os
 import random
 
-# CLASS CONTA
-# class contas:
-#     _total_contas = 0
-#     # CONSTRUTOR DA CLASS
-#     def __init__(self, numero, cliente, saldo, limite, tipoConta):
-#         self.numero = numero
-#         self.titular = cliente
-#         self.saldo = saldo
-#         self.limite = limite
-#         self.tipoConta = tipoConta
-#         self.historico = Historico()
-#         self._total_contas += 1
-#         self.arquivo = open('conta{}.txt'.format(numero), 'w')
-
-    # @classmethod
-    # def get_total_contas(cls):
-    #     return cls._total_contas
-        
-    # def criar_conta(numero, titular, saldo, limite, tipoCopa):
-    #     conta = {"numero": numero, "titular":titular, "saldo":saldo, "limite":limite, "tipo_conta":tipoConta}
-    #     return conta
-    
-    # FUNCAO DE DEPOSITO
-    # def depositar(self, valor):
-    #     self.saldo = int(self.saldo) + valor
-    #     dc = {"Tipo":"Deposito", "Valor":valor, "Categoria":"-", "Data":datetime.datetime.today().date().isoformat()}
-    #     self.historico.transacoes.append(dc)
-        # self.historico.tipoConta = self.tipoConta
-        # self.historico.numeroConta = self.numero
-        # self.historico.transacoes.append("deposito de {}\n\t-- Data: {}".format(valor, datetime.datetime.today().date()))
-        
-    # FUNCAO DE LEVANTAMENTO, CONDICIONADO PELO VALOR A LEVANTAR
-    # def levantamento(self, valor, categoria):
-    #     if (int(self.saldo) < valor):
-    #         return False
-    #     else:
-    #         if (categoria == "Transferencia"):
-    #             categoria = "-"
-    #         self.saldo = int(self.saldo) - valor
-    #         # dt = datetime.datetime.today().date().isoformat()
-    #         dc = {"Tipo":"Levantamento", "Valor":valor, "Categoria":categoria, "Data":datetime.datetime.today().date().isoformat()}
-    #         self.historico.transacoes.append(dc)
-    #         # self.historico.tipoConta = self.tipoConta
-    #         # self.historico.numeroConta = self.numero
-    #         # self.historico.transacoes.append("Levantamento de {}\n\t-- Categoria Gasto: {}\n\t-- Data:{}".format(valor, categoria, datetime.datetime.today().date()))
-    #         if (self.saldo < 0):
-    #             print("O saldo da conta {} esta negativo: {}".format(self.numero, self.saldo))
-    #         return True
-        
-    # def extrato(self):
-    #     print("Número: {}\nSaldo Dispnivel: {}".format(self.numero, self.saldo))
-    #     self.historico.tipoConta = self.tipoConta
-    #     self.historico.numeroConta = self.numero
-    #     dc = {"Tipo":"Extrato", "Categoria":"-", "Data":datetime.datetime.today().date().isoformat()}
-    #     self.historico.transacoes.append(dc)
-        # self.movimento = Movimentos()
-        # self.movimento.tipo_movimento.append("Tirou extrato\n")
-        # self.historico.transacoes.append("Tirou extrato - saldo")
-    
-    # def transfer_para(self, destino, valor):
-    #     retirou = self.levantamento(valor, "Transferencia")
-    #     if (retirou == False):
-    #         return False
-    #     else:
-    #         destino.depositar(valor)
-    #         self.historico.tipoConta = self.tipoConta
-    #         self.historico.numeroConta = self.numero
-    #         dc = {"Tipo":"Transferencia", "Valor":valor, "Categoria":"-", "Destino":destino.numero, "Data":datetime.datetime.today().date().isoformat()}
-    #         self.historico.transacoes.append(dc)
-    #         # self.movimento = Movimentos()
-    #         # self.movimento.tipo_movimento.append("transferencia de {} para conta {}\n".format(valor, destino.numero))
-    #         # self.historico.transacoes.append("transferencia de {} para conta {}\n\t-- Data: {}".format(valor, destino.numero, datetime.datetime.today().date()))
-    #         return True
-        
-    # def categoria_gasto(cat):
-    #     categoria = ""
-    #     if (cat == 0):
-    #         categoria = "Casa"
-    #     elif (cat == 1):
-    #         categoria = "Seguros"
-    #     elif (cat == 2):
-    #         categoria = "Medicina"
-    #     elif (cat == 3):
-    #         categoria = "Salario"
-    #     elif (cat == 4):
-    #         categoria = "Telefone"
-    #     elif (cat == 5):
-    #         categoria = "Prendas"
-    #     elif (cat == 6):
-    #         categoria = "Alimentacao"
-    #     else:
-    #         categoria = "Outro"
-            
-    #     return categoria
-
-# class clientes:
-#     def __init__(self, nome, sobrenome, bi):
-#         self.nome = nome
-#         self.sobrenome = sobrenome
-#         self.bi = bi
-#         if os.path.exists('titulares.txt'):
-#             self.arquivoTitular = open('titulares.txt','a')
-#         else:
-#             self.arquivoTitular = open('titulares.txt','w')
-#         self.arquivoTitular.write('{} {} {}\n'.format(nome, sobrenome, bi))
-
-# class Historico:
-#     def __init__(self):
-#         self.data_abertura = datetime.datetime.today()
-#         self.tipoConta = ""
-#         self.numeroConta = ""
-#         self.transacoes = []
-
-    # def imprime(self):
-    #     print("data abertura: {}".format(self.data_abertura))
-    #     print("Tipo Conta: {}".format(self.tipoConta))
-    #     print("Número deConta: {}".format(self.numeroConta))
-    #     print("Movimentos: ")
-    #     for t in self.transacoes:
-    #         print("-", t)
-            
 class Movimentos:
     def __init__(self):
         self.data_movimento = datetime.datetime.today().date()
@@ -149,11 +28,31 @@ if __name__ == '__main__':
     def movimentos(ct, tp):
         data_movimento = datetime.datetime.today().date()
         tp_movimento = [ct, tp, data_movimento]
+        if os.path.exists('Movimentos.txt'):
+            arquivoMovimentos = open('Movimentos.txt','a')
+        else:
+            arquivoMovimentos = open('Contas.txt','w')
+        arquivoMovimentos.write('{}\n'.format(ct))
+        arquivoMovimentos.write('{}\n'.format(tp))
+        arquivoMovimentos.write('{}\n'.format(data_movimento))
+        # arquivoMovimentos.write('{}\n'.format(limite))
+        # arquivoMovimentos.write('{}\n'.format(tipoConta))
+        arquivoMovimentos.close()
         mov.append(tp_movimento)
     
-    def criar_conta(numero, titular, saldo, limite, tipoCopa):
+    def criar_conta(numero, titular, saldo, limite, tipoConta):
         histo_trans = []
-        conta = [numero, titular, saldo, limite, tipoCopa, histo_trans, datetime.datetime.today().date().isoformat()]
+        conta = [numero, titular, saldo, limite, tipoConta, histo_trans, datetime.datetime.today().date().isoformat()]
+        if os.path.exists('Contas.txt'):
+            arquivoConta = open('Contas.txt','a')
+        else:
+            arquivoConta = open('Contas.txt','w')
+        arquivoConta.write('{}\n'.format(numero))
+        arquivoConta.write('{}\n'.format(titular))
+        arquivoConta.write('{}\n'.format(saldo))
+        arquivoConta.write('{}\n'.format(limite))
+        arquivoConta.write('{}\n'.format(tipoConta))
+        arquivoConta.close()
         return conta
     
     def alterar_conta(numero_conta):
@@ -198,7 +97,7 @@ if __name__ == '__main__':
             arquivoTitular = open('titulares.txt','a')
         else:
             arquivoTitular = open('titulares.txt','w')
-        arquivoTitular.write('{}\n{}\n{}\n'.format(nome, sobrenome, bi))
+        arquivoTitular.write('{}\n{}\n{}\n{}\n'.format(id_titular, nome, sobrenome, bi))
         arquivoTitular.close()
         clt = [id_titular, nome, sobrenome, bi]
         return clt
@@ -236,14 +135,9 @@ if __name__ == '__main__':
         for c in cont:
             if (int(c[0]) == conta_num):
                 print("Número: {}\nSaldo Dispnivel: {} AOA".format(conta_num, c[2]))
-                # conta.historico.tipoConta = conta.tipoConta
-                # conta.historico.numeroConta = conta.numero
                 dc = {"Tipo":"Extrato", "Categoria":"-", "Data":datetime.datetime.today().date().isoformat()}
                 c[5].append(dc)
                 movimentos(conta_num, "Tirou extrato")
-        # self.movimento = Movimentos()
-        # self.movimento.tipo_movimento.append("Tirou extrato\n")
-        # self.historico.transacoes.append("Tirou extrato - saldo")
         
     def transfer_para(conta, destino, valor):
         
@@ -257,14 +151,9 @@ if __name__ == '__main__':
                         if (int(d[0]) == destino):
                             dest = d
                     depositar(destino, valor)
-                    # conta.historico.tipoConta = conta.tipoConta
-                    # conta.historico.numeroConta = conta.numero
                     dc = {"Tipo":"Transferencia", "Valor":valor, "Categoria":"-", "Destino":dest[0], "Data":datetime.datetime.today().date().isoformat()}
                     c[5].append(dc)
                     movimentos(conta,"transferencia de {} para conta {}\n".format(valor, dest[0]))
-                    # self.movimento = Movimentos()
-                    # self.movimento.tipo_movimento.append("transferencia de {} para conta {}\n".format(valor, destino.numero))
-                    # self.historico.transacoes.append("transferencia de {} para conta {}\n\t-- Data: {}".format(valor, destino.numero, datetime.datetime.today().date()))
                     return True
         
     def categoria_gasto(cat):
@@ -287,11 +176,6 @@ if __name__ == '__main__':
             categoria = "Outro"
             
         return categoria
-
-    def imprime_movimento(self):
-        print("Movimentos: ")
-        for m in self.tipo_movimento:
-            print("->",m)
             
     def imprime_historico(conta):
         for c in cont:
@@ -391,7 +275,6 @@ if __name__ == '__main__':
                                     nn = 1
                     else:
                         vf = 1
-                        # conta_ret = cont[i]
                 if (vf == 1):
                     resp = input("A conta não existe. Tentar novamente?[Y/N]: ")
                     if (resp == "Y" or resp == "y"):
@@ -416,34 +299,26 @@ if __name__ == '__main__':
                     
         
         elif (escolha == '6'):
-            # print(datetime.datetime.date('2022-12-12'))
             dtini = input("primeira data: ")
             dtfim = input("segunda data: ")
             
             dti = time.strptime(dtini,"%Y-%m-%d")
             dtf = time.strptime(dtfim, "%Y-%m-%d")
             
-            i = 0
             print("\t============ MOVIMENTOS ENTRE {} E {} =============".format(dtini, dtfim))
             for i in cont:
-                # print(i[5])
-                # ii = 0
                 vf = 0
                 for ii in i[5]:
                     dtcont = time.strptime(ii['Data'], "%Y-%m-%d")
                     if (dtcont >= dti and dtcont <= dtf):
                         print("\t{}".format(ii))
                         vf += 1
-                    # ii += 1
-                # i += 1
                 
             if (vf == 0):
                 print("\tNao existe nenhum movimento neste intervalo de datas.")
                     
-            # if (dti > dtf):
-            #     print(True)
-                
         elif (escolha == '7'):
+            print("\t============ MOVIMENTOS POR CATEGORIA =============")
             print("0 -- Casa")
             print("1 -- Seguros")
             print("2 -- Medicina")
@@ -454,18 +329,13 @@ if __name__ == '__main__':
             print("7 -- Outro")
             
             cat = int(input("Categoria: "))
-            categoria_gasto(cat)
-            i = 0
-            vf = 0
-            while i < len(cont):
+            for i in cont:
                 ii = 0
                 vf = 0
-                while ii < len(cont[ii].historico.transacoes):
-                    if (cont[i].historico.transacoes[ii]['Categoria'] == cat):
-                        print(cont[i].historico.transacoes[ii])
+                for ii in i[5]:
+                    if (ii['Categoria'] == categoria_gasto(cat)):
+                        print(ii)
                         vf += 1
-                    ii += 1
-                i += 1
                 
             if (vf == 0):
                 print("\tNao existe nenhum movimento nesta categoria.")
@@ -487,5 +357,4 @@ if __name__ == '__main__':
             print("\t\t\t++++ OBRIGADO POR USAR OS NOSSOS SERVIÇOS ++++")
         else:
             print("Opção não existe. Tente novamente")
-        # print(len(cl))
         print()
